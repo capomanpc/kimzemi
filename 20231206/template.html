@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>アンケート結果</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+</head>
+
+<body>
+    <h1>アンケート結果</h1>
+    <table border="1">
+        <tr>
+            <th>設問</th>
+            <th>1.全くそう思わない</th>
+            <th>2.そう思わない</th>
+            <th>3.どちらでもない</th>
+            <th>4.そう思う</th>
+            <th>5.強くそう思う</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>{{index . "q1op1"}}</td>
+            <td>{{index . "q1op2"}}</td>
+            <td>{{index . "q1op3"}}</td>
+            <td>{{index . "q1op4"}}</td>
+            <td>{{index . "q1op5"}}</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>{{index . "q2op1"}}</td>
+            <td>{{index . "q2op2"}}</td>
+            <td>{{index . "q2op3"}}</td>
+            <td>{{index . "q2op4"}}</td>
+            <td>{{index . "q2op5"}}</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>{{index . "q3op1"}}</td>
+            <td>{{index . "q3op2"}}</td>
+            <td>{{index . "q3op3"}}</td>
+            <td>{{index . "q3op4"}}</td>
+            <td>{{index . "q3op5"}}</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>{{index . "q4op1"}}</td>
+            <td>{{index . "q4op2"}}</td>
+            <td>{{index . "q4op3"}}</td>
+            <td>{{index . "q4op4"}}</td>
+            <td>{{index . "q4op5"}}</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>{{index . "q5op1"}}</td>
+            <td>{{index . "q5op2"}}</td>
+            <td>{{index . "q5op3"}}</td>
+            <td>{{index . "q5op4"}}</td>
+            <td>{{index . "q5op5"}}</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>{{index . "q6op1"}}</td>
+            <td>{{index . "q6op2"}}</td>
+            <td>{{index . "q6op3"}}</td>
+            <td>{{index . "q6op4"}}</td>
+            <td>{{index . "q6op5"}}</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>{{index . "q7op1"}}</td>
+            <td>{{index . "q7op2"}}</td>
+            <td>{{index . "q7op3"}}</td>
+            <td>{{index . "q7op4"}}</td>
+            <td>{{index . "q7op5"}}</td>
+        </tr>
+
+    </table>
+
+    <h5>設問1</h5>
+    <script>
+        var resultsQ1, resultsQ2, resultsQ3, resultsQ4, resultsQ5, resultsQ6, resultsQ7;
+
+        // サーバーからデータを取得してグラフを描画する関数
+        async function fetchData() {
+            // サーバーからデータを非同期で取得
+            const response = await fetch('/data'); // http://localhost:8080/data のURLにアクセスするとデータを取得できる
+            if (!response.ok) {
+                throw new Error('データの取得に失敗しました');
+            }
+            // JSON データを取り出し
+            const Alldata = await response.json();
+            console.log("data:", Alldata);
+
+            // data オブジェクトから各 resultsQ マップを取り出す
+            resultsQ1 = Alldata.resultsQ1;
+            resultsQ2 = Alldata.resultsQ2;
+            resultsQ3 = Alldata.resultsQ3;
+            resultsQ4 = Alldata.resultsQ4;
+            resultsQ5 = Alldata.resultsQ5;
+            resultsQ6 = Alldata.resultsQ6;
+            resultsQ7 = Alldata.resultsQ7;
+
+            // resultsQ1からQ7までの値をブラウザのコンソールに表示
+            console.log('resultsQ1:', resultsQ1);
+            console.log('resultsQ2:', resultsQ2);
+            console.log('resultsQ3:', resultsQ3);
+            console.log('resultsQ4:', resultsQ4);
+            console.log('resultsQ5:', resultsQ5);
+            console.log('resultsQ6:', resultsQ6);
+            console.log('resultsQ7:', resultsQ7);
+
+            const data = Object.keys(resultsQ1).map(choice => ({
+                choice: choice,
+                votes: resultsQ1[choice]
+            }));
+
+    
+            // SVGのサイズ設定
+            const width = 300, height = 250;
+    
+            // 投票数の合計を計算する変数
+            let totalVotes = 0;
+    
+            // forループを使用して投票数を合計
+            for (let i = 0; i < data.length; i++) {
+                totalVotes += data[i].votes;
+            }
+    
+            //SVG要素の作成
+            const svg = d3.select("body").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+    
+            // スケールの設定
+            const xScale = d3.scaleLinear()
+                .domain([0, totalVotes])
+                .range([0, width]);
+    
+            // 横棒グラフの背景 (グレー) を描画
+            svg.selectAll("rect.bg")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bg")
+                .attr("y", (d, i) => i * 40)
+                .attr("width", width)
+                .attr("height", 30)
+                .attr("fill", "whitesmoke")
+                .attr("rx", 5)
+                .attr("ry", 5);
+    
+            const colorScale = d3.scaleLinear()
+                .domain([0, data.length - 1])
+                .range(["#87cefa", "#6495ed"]);
+    
+            // 横棒グラフの前景 (選択された回数) を描画
+            svg.selectAll("rect.fg")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "fg")
+                .attr("y", (d, i) => i * 40)
+                .attr("width", d => xScale(d.votes))
+                .attr("height", 30)
+                .attr("fill", (d, i) => colorScale(i))
+                .attr("rx", 5)
+                .attr("ry", 5);
+    
+            // データ数（投票数）を表示するテキストの追加
+            svg.selectAll("text")
+                .data(data)
+                .enter().append("text")
+                .attr("x", width / 2)
+                .attr("y", (d, i) => i * 40 + 15)
+                .attr("text-anchor", "middle")
+                .attr("dy", ".35em")
+                .attr("fill", d => (xScale(d.votes) > width / 2) ? "white" : "black")
+                .text(d => d.votes); 
+        }
+        fetchData();
+
+        
+    </script>
+
+</body>
+
+</html>

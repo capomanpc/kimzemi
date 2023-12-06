@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>アンケート</title>
+    <style>
+        .qnum{ /*設問番号を大きく太字に*/
+            font-size: 20px;
+        
+        }
+        .question { /*各設問を囲う領域*/
+            background-color: #fff;
+            padding: 10px; /*内側の余白*/
+            border-radius: 8px; /*角丸*/
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);/*影の調整、0.08が影の度合い*/
+            margin-bottom: 14px;/*下側の余白*/
+            border: 1.2px solid #dcdcdc; /*領域の外枠の線*/
+            width: 580px; /*横幅を固定*/
+            margin-left: auto; /* 左側の余白を自動に設定 */
+            margin-right: auto; /* 右側の余白を自動に設定 */
+            padding-left: 20px; /* 左側の内側余白を追加 */
+            padding-right: 20px; /* 右側の内側余白を追加 */
+        }
+        .top {/*一番上の題名の領域*/
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1.2px solid #dcdcdc;
+            background-image: linear-gradient(to bottom, #28647b, #28647b 10px, #fff 3px, #fff); /*題名の上の青い線*/
+            width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        body{
+            color:rgb(62, 62, 62);
+            font-family:"メイリオ";
+        }
+    </style>
+    <script>
+        function checkAllAnswered(event) {
+            for (let i = 1; i <= 7; i++) { //全ての選択肢がチェックされなかったらアラート
+                if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                    alert('全てのアンケートに回答してください。');
+                    event.preventDefault(); 
+                    return;
+                }
+            }
+            if (!confirm('本当に送信しますか？')) {
+                event.preventDefault(); //送信するかの最終確認
+            }
+        }
+        function checkFormClear(event){
+            
+        }
+    </script>
+</head>
+<body bgcolor="eaf0f2">
+    <form action="/submit" method="post" onsubmit="checkAllAnswered(event)"> 
+    
+    <div class="top">
+        <p style="font-size: 30px">授業評価Webアンケートシステム</p>
+        
+        <span style="color:rgb(186, 15, 15)">* 必須の質問です</span>
+
+    </div>
+    <div class="question">
+        <p><span class="qnum">1 </span>授業はシラバスに沿って行われましたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q1" value="op1">
+        <label for="1">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q1" value="op2">
+        <label for="2">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q1" value="op3">
+        <label for="3">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q1" value="op4">
+        <label for="4">4.そう思う</label><br>
+        <input type="radio" id="five" name="q1" value="op5">
+        <label for="5">5.強くそう思う</label><br>
+    </div>
+    <div class="question">
+        <p><span class="qnum">2 </span>話し方は、明瞭で聞き取りやすかったですか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q2" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q2" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q2" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q2" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q2" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+    <div class="question">
+        <p><span class="qnum">3 </span>講義動画・資料は、適切でしたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q3" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q3" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q3" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q3" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q3" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+
+    <div class="question">
+        <p><span class="qnum">4 </span>授業時間（オンタイム）外の学修（内容，方法等）について，担当教員から具体的（シラバスに明記を含む）に示されましたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q4" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q4" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q4" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q4" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q4" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+
+    <div class="question">
+        <p><span class="qnum">5 </span>課題（レポート，小テスト等）に対し，担当教員から学生へのフィードバック（評価や講評等の開示）はありましたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q5" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q5" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q5" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q5" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q5" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+
+    <div class="question">
+        <p><span class="qnum">6 </span>この授業科目に関し，授業時間（オンタイム）外に，担当教員に対し質問等をしましたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q6" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q6" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q6" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q6" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q6" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+
+    <div class="question">
+        <p><span class="qnum">7 </span>この授業科目に関し，授業時間（オンタイム）外に，学生間で共に学修しましたか。<sapn style="color: rgb(186, 15, 15);">*</span></p>
+        <input type="radio" id="one" name="q7" value="op1">
+        <label for="rgb(186, 15, 15)">1.全くそう思わない</label><br>
+        <input type="radio" id="two" name="q7" value="op2">
+        <label for="blue">2.そう思わない</label><br>
+        <input type="radio" id="three" name="q7" value="op3">
+        <label for="blue">3.どちらでもない</label><br>
+        <input type="radio" id="four" name="q7" value="op4">
+        <label for="blue">4.そう思う</label><br>
+        <input type="radio" id="five" name="q7" value="op5">
+        <label for="blue">5.強くそう思う</label><br>
+    </div>
+        <input type="submit" value="送信">
+
+    </form>
+    <form action="" method="get">
+        <input type="submit" value="フォームをクリア">
+
+    </form>
+</body>
+</html>
