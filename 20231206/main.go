@@ -51,13 +51,16 @@ func serveForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitForm(w http.ResponseWriter, r *http.Request) {
-	q1 := r.FormValue("q1") //name属性に対応するvalue属性を文字列に代入
+	//name属性に対応するvalue属性をstring型変数に代入
+	q1 := r.FormValue("q1")
 	q2 := r.FormValue("q2")
 	q3 := r.FormValue("q3")
 	q4 := r.FormValue("q4")
 	q5 := r.FormValue("q5")
 	q6 := r.FormValue("q6")
 	q7 := r.FormValue("q7")
+
+	//resultsマップの対応するkeyのvalueを加算
 	mutex.Lock()
 	results["q1"+q1]++
 	results["q2"+q2]++
@@ -67,7 +70,7 @@ func submitForm(w http.ResponseWriter, r *http.Request) {
 	results["q6"+q6]++
 	results["q7"+q7]++
 	mutex.Unlock()
-	http.Redirect(w, r, "/results", http.StatusFound) //"/results"にリダイレクト
+	http.Redirect(w, r, "/results", http.StatusFound) // "/results"にリダイレクト
 }
 
 func showResults(w http.ResponseWriter, r *http.Request) {
