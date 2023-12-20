@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理者ログイン</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            /* ここに余白を追加 */
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            background-color: #1abc9c;
+            color: #ffffff;
+            padding: 10px 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: #16a085;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>管理者ログイン</h1>
+
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">ユーザー名</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password">パスワード</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn">ログイン</button>
+        </form>
+    </div>
+</body>
+
+</html>

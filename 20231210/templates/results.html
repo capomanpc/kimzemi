@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Results</title>
+</head>
+<body>
+    <h1>Survey Results</h1>
+    <p>Survey Title: {{.Title}}</p>
+    <h2>Results:</h2>
+    <ul>
+        {{range .Results}}
+        <li>{{.Option}}: {{.Count}}</li>
+        {{end}}
+    </ul>
+</body>
+</html>

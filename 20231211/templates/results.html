@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Results</title>
+</head>
+<body>
+    <h1>Survey Results - {{.Title}}</h1>
+    <table>
+        {{range $question, $count := .Results}}
+            <tr>
+                <td>{{$question}}</td>
+                <td>{{$count}}</td>
+            </tr>
+        {{end}}
+    </table>
+    <a href="/create">Create a New Survey</a>
+</body>
+</html>

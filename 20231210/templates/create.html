@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create a New Survey</title>
+</head>
+<body>
+    <h1>Create a New Survey</h1>
+    <form action="/create" method="post">
+        <label for="title">Survey Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
+        <input type="submit" value="Create">
+    </form>
+
+    {{if .}}
+    <p>Created Survey Title: {{.}}</p>
+    {{end}}
+</body>
+</html>

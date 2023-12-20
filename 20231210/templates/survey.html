@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.}} Survey</title>
+</head>
+<body>
+    <h1>{{.}} Survey</h1>
+    <form action="/result/{{.}}" method="post">
+        {{range .}}
+        <input type="radio" name="option" value="{{.}}"> {{.}}<br>
+        {{end}}
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
