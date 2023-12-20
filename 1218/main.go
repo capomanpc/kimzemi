@@ -14,6 +14,7 @@ type Survey struct {
 	ClassTiming string
 	TeacherName string
 	Results     map[string]interface{}
+	TotalVote   string
 }
 
 var (
@@ -29,6 +30,7 @@ func main() {
 		ClassCode:   "E51R",
 		ClassTiming: "金曜1",
 		TeacherName: "日大　太郎",
+		TotalVote:   "0",
 	}
 	surveys["総合ゼミナール"] = survey
 
@@ -79,10 +81,18 @@ func surveyHandler(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 
 		for i := 1; i <= 7; i++ {
-			questionKey := fmt.Sprintf("q%d", i) // 質問キーを生成 (例: "q1", "q2", ...)
-			response := r.FormValue(questionKey) // フォームからの回答を取得
-			resultsSlice[i-1][response]++
+			questionKey := fmt.Sprintf("q%d", i) // name属性の名前を用意、q1からq7のname属性を用意
+			response := r.FormValue(questionKey) // name属性に対応するvalue属性をresponseに代入
+			resultsSlice[i-1][response]++        // i-1番目のマップでresponseキーに対応するvalueを加算
 		}
+
+		totalVotes := 0
+		for _, results := range resultsSlice {
+			for _, count := range results {
+				totalVotes += count
+			}
+		}
+		survey.TotalVote = fmt.Sprintf("%d", totalVotes/7)
 
 		var resultsQ1 = resultsSlice[0]
 		var resultsQ2 = resultsSlice[1]
