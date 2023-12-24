@@ -9,12 +9,12 @@ import (
 )
 
 type Survey struct {
-	ClassTitle  string
-	ClassCode   string
-	ClassTiming string
-	TeacherName string
-	Results     map[string]interface{}
-	TotalVote   string
+	ClassTitle    string
+	ClassCode     string
+	ClassSchedule string
+	TeacherName   string
+	Results       map[string]interface{}
+	TotalVote     string
 }
 
 var (
@@ -26,11 +26,11 @@ var (
 func main() {
 	// 最初に表示する設問を追加
 	survey := &Survey{
-		ClassTitle:  "総合ゼミナール",
-		ClassCode:   "E51R",
-		ClassTiming: "金曜1",
-		TeacherName: "日大　太郎",
-		TotalVote:   "0",
+		ClassTitle:    "総合ゼミナール",
+		ClassCode:     "E51R",
+		ClassSchedule: "金曜1",
+		TeacherName:   "日大　太郎",
+		TotalVote:     "0",
 	}
 	surveys["総合ゼミナール"] = survey
 
@@ -51,7 +51,9 @@ func main() {
 	http.HandleFunc("/admin", adminHandler)
 	http.HandleFunc("/admin/results/", resultsHandler)
 	http.HandleFunc("/admin/results/getdata/", getDataHandler)
-	//http.HandleFunc("/admin/create", createHandler)
+	http.HandleFunc("/admin/create", createHandler)
+	http.HandleFunc("/submit-success1", submitSuccess1Handler)
+	http.HandleFunc("/submit-success2", submitSuccess2Handler)
 
 	fmt.Println("サーバー起動 : http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
@@ -86,6 +88,7 @@ func surveyHandler(w http.ResponseWriter, r *http.Request) {
 			resultsSlice[i-1][response]++        // i-1番目のマップでresponseキーに対応するvalueを加算
 		}
 
+		// 投票人数をカウントしてstringに型変換しフィールドを更新
 		totalVotes := 0
 		for _, results := range resultsSlice {
 			for _, count := range results {
@@ -112,7 +115,7 @@ func surveyHandler(w http.ResponseWriter, r *http.Request) {
 			"resultsQ7": resultsQ7,
 		}
 
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		http.Redirect(w, r, "/submit-success1", http.StatusSeeOther)
 		return
 	}
 
@@ -122,6 +125,10 @@ func surveyHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	tmpl.Execute(w, survey)
+}
+
+func submitSuccess1Handler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "surveySuccess.html")
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -180,4 +187,26 @@ func getDataHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(survey.Results)
+}
+
+func createHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+		survey := &Survey{
+			ClassTitle:    r.FormValue("classTitle"),
+			ClassCode:     r.FormValue("classCode"),
+			ClassSchedule: r.FormValue("classSchedule"),
+			TeacherName:   r.FormValue("teacherName"),
+			TotalVote:     "0",
+		}
+		surveys[r.FormValue("classTitle")] = survey
+		http.Redirect(w, r, "/submit-success2", http.StatusSeeOther)
+
+		return
+	}
+	http.ServeFile(w, r, "create.html")
+}
+
+func submitSuccess2Handler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "createSuccess.html")
 }

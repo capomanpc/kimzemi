@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>アンケート作成フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+
+
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding-left: 50px;
+            border-radius: 8px;
+            height: 500px;
+
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 300px;
+
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            background-color: #476191;
+            /* Cornflower Blue */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: rgb(37, 83, 183);
+        }
+
+        h3 {
+            text-align: center;
+            color: #414141;
+        }
+
+        .sidebar {
+            width: 200px;
+            /* サイドバーの幅を200pxに設定 */
+            background-color: #f0f0f0;
+            padding: 10px;
+            height: 100vh;
+            /* 画面の高さ全体に合わせる */
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: black;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        header {
+            background-color: #476191;
+            color: white;
+            text-align: left;
+            padding: 13px;
+            margin: 0;
+            width: 100%;
+        }
+
+        header h2 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .title {
+            font-weight: normal;
+            color: #1b2468;
+        }
+
+        .sentences {
+            font-weight: normal;
+            color: #5d5d5d;
+        }
+
+        .input-example {
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>　日本大学短期大学部 WEBアンケートシステム</h2>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="rounded-container">
+                <h3>管理者用ページ</h3>
+            </div>
+            <a href="/admin">集計結果</a>
+            <a href="/admin/create">アンケート作成</a>
+            <a href="/" style="font-weight: bold;">学生用ページへ戻る</a>
+        </div>
+
+
+        <div class="form-container">
+            <h2 class="title">アンケート作成フォーム</h2>
+            <div class="setence-container">
+                <h5 class="sentences">アンケートが作成できます。以下の項目を入力してください。</h5>
+            </div>
+
+            <form action="/admin/create" method="post">
+                <div class="form-group">
+                    <label for="classTitle">科目名</label>
+                    <input type="text" id="classTitle" name="classTitle" required>
+                    <span class="input-example">例　総合ゼミナール</span>
+                </div>
+                <div class="form-group">
+                    <label for="classCode">時間割CD</label>
+                    <input type="text" id="classCode" name="classCode" required>
+                    <span class="input-example">例　E51R</span>
+                </div>
+                <div class="form-group">
+                    <label for="classSchedule">設置時限</label>
+                    <input type="text" id="classSchedule" name="classSchedule" required>
+                    <span class="input-example">例　金曜1</span>
+
+                </div>
+                <div class="form-group">
+                    <label for="teacherName">教員名</label>
+                    <input type="text" id="teacherName" name="teacherName" required>
+                    <span class="input-example">例　日大 太郎</span>
+
+                </div>
+                <button type="submit" class="submit-button" onclick="handleSubmit()">送信</button>
+
+            </form>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

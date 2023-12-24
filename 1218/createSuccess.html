@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>アンケート作成フォーム</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+
+
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding-left: 50px;
+            border-radius: 8px;
+            height: 500px;
+
+        }
+
+        h3 {
+            text-align: center;
+            color: #414141;
+        }
+
+        .sidebar {
+            width: 200px;
+            /* サイドバーの幅を200pxに設定 */
+            background-color: #f0f0f0;
+            padding: 10px;
+            height: 100vh;
+            /* 画面の高さ全体に合わせる */
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px;
+            color: black;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #ddd;
+        }
+
+        header {
+            background-color: #476191;
+            color: white;
+            text-align: left;
+            padding: 13px;
+            margin: 0;
+            width: 100%;
+        }
+
+        header h2 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .title {
+            font-weight: normal;
+            color: #1b2468;
+        }
+
+        .sentences {
+            font-weight: normal;
+            color: #5d5d5d;
+        }
+
+        .rightButton {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            color: #0000EE;
+            text-decoration: underline;
+            font-size: 16px;
+        }
+
+        .rightButton:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 7px 3px;
+
+        }
+
+        .sentence-container{
+            margin-top: 100px;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>　日本大学短期大学部 WEBアンケートシステム</h2>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="rounded-container">
+                <h3>管理者用ページ</h3>
+            </div>
+            <a href="/admin">集計結果</a>
+            <a href="/admin/create">アンケート作成</a>
+            <a href="/" style="font-weight: bold;">学生用ページへ戻る</a>
+        </div>
+
+
+        <div class="form-container">
+            <h2 class="title">アンケート作成フォーム</h2><br><br>
+            <div class="setence-container">
+                <h3>アンケート作成完了</h3>
+                <h3 class="sentences">集計結果および学生用ページのアンケート一覧から確認できます</h3>
+                <div class="button-container">
+                    <button class="rightButton" form="back-to-home" type="submit">回答結果一覧に戻る</button>
+                </div>
+                <form id="back-to-home" action="/admin" method="get"></form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -5,6 +5,10 @@
   <title>アンケート結果</title>
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <style>
+    body {
+      margin: 0;
+    }
+
     .table {
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 7px 3px;
       width: 800px;
@@ -112,12 +116,51 @@
       padding: 5px 0;
     }
 
-    .header {
-      background-color: #6495ED;
-      border: 10px solid #6495ED;
+    header {
+      background-color: #476191;
       color: white;
-      font-weight: normal;
+      text-align: left;
+      padding: 13px;
+      margin: 0;
+      width: 100%;
     }
+
+    header h2 {
+      margin: 0;
+      font-weight: normal;
+      font-size: 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #f0f0f0;
+      padding: 10px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 10px;
+      color: black;
+      text-decoration: none;
+      margin-bottom: 5px;
+    }
+
+    .sidebar a:hover {
+      background-color: #ddd;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 30px;
+      background-color: #ffffff;
+    }
+
+    .content {
+      display: flex;
+    }
+
   </style>
 
 
@@ -125,395 +168,408 @@
 
 <body>
   <header>
-    <h2 class="header">日本大学理工学部 WEBアンケートシステム</h2>
+    <h2>　日本大学短期大学部 WEBアンケートシステム</h2>
   </header>
 
-  <table class="preferenceTable">
-    <tbody>
-      <tr>
-        <th style="font-weight:bold">科目情報</th>
-        <td>
-          <div class="fieldSet">
-            <div class="fieldSetLabel">科目名</div>
-            <div class="fieldSetElement">{{.ClassTitle}}</div>
-          </div>
-          <div class="fieldSet hasNext">
-            <div class="fieldSetLabel">時間割CD</div>
-            <div class="fieldSetElement">{{.ClassCode}}</div>
-          </div>
-          <div class="fieldSet hasNext">
-            <div class="fieldSetLabel">設置時限</div>
-            <div class="fieldSetElement">{{.ClassTiming}}</div>
-          </div>
-          <div class="fieldSet hasNext">
-            <div class="fieldSetLabel">教員名</div>
-            <div class="fieldSetElement">{{.TeacherName}}</div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <th style="font-weight:bold">回答状況</th>
-        <td>
-          <div class="answerStateBoard" style="height: 40px; padding: 10px 5px;">
-            <div class="answerCount" style="font-size: 20pt; color: #6495ED; margin-bottom: 10px; letter-spacing: 0;">
-              {{.TotalVote}}名が回答済み
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="table">
-    <tr>
-      <th>No.</th>
-      <th>設問</th>
-      <th>回答</th>
-    </tr>
-    <tr>
-      <td colspan=3 style="text-align: center; background-color: #f9f9f9;">【授業全体及び教師について】</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>授業はシラバスに沿って行われましたか。</td>
-      <td>
-        <table>
+  <div class="content">
+
+    <div class="sidebar">
+      <h3>管理者用ページ</h3>
+      <a href="/admin">集計結果</a>
+      <a href="/admin/create">アンケート作成</a>
+      <a href="/" style="font-weight: bold;">学生用ページへ戻る</a>
+
+    </div>
+
+    <div class=" main-content">
+      <table class="preferenceTable">
+        <tbody>
           <tr>
+            <th style="font-weight:bold">科目情報</th>
             <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q1-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q1-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q1-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q1-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q1-5"></span>
-                </li>
-              </ol>
+              <div class="fieldSet">
+                <div class="fieldSetLabel">科目名</div>
+                <div class="fieldSetElement">{{.ClassTitle}}</div>
+              </div>
+              <div class="fieldSet hasNext">
+                <div class="fieldSetLabel">時間割CD</div>
+                <div class="fieldSetElement">{{.ClassCode}}</div>
+              </div>
+              <div class="fieldSet hasNext">
+                <div class="fieldSetLabel">設置時限</div>
+                <div class="fieldSetElement">{{.ClassSchedule}}</div>
+              </div>
+              <div class="fieldSet hasNext">
+                <div class="fieldSetLabel">教員名</div>
+                <div class="fieldSetElement">{{.TeacherName}}</div>
+              </div>
             </td>
           </tr>
-        </table>
-      </td>
-    </tr>
-
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
           <tr>
+            <th style="font-weight:bold">回答状況</th>
             <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q2-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q2-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q2-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q2-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q2-5"></span>
-                </li>
-              </ol>
+              <div class="answerStateBoard" style="height: 40px; padding: 10px 5px;">
+                <div class="answerCount"
+                  style="font-size: 20pt; color: #476191; margin-bottom: 10px; letter-spacing: 0;">
+                  {{.TotalVote}}名が回答済み
+                </div>
+              </div>
             </td>
           </tr>
-        </table>
-      </td>
-    </tr>
+        </tbody>
+      </table>
+      <table class="table">
+        <tr>
+          <th>No.</th>
+          <th>設問</th>
+          <th>回答</th>
+        </tr>
+        <tr>
+          <td colspan=3 style="text-align: center; background-color: #f9f9f9;">【授業全体及び教師について】</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>授業はシラバスに沿って行われましたか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q1-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q1-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q1-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q1-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q1-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
 
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
-          <tr>
-            <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q3-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q3-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q3-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q3-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q3-5"></span>
-                </li>
-              </ol>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
-          <tr>
-            <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q4-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q4-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q4-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q4-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q4-5"></span>
-                </li>
-              </ol>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
-          <tr>
-            <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q5-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q5-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q5-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q5-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q5-5"></span>
-                </li>
-              </ol>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
-          <tr>
-            <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q6-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q6-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q6-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q6-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q6-5"></span>
-                </li>
-              </ol>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>話し方は、明瞭で聞き取り易かったですか。</td>
-      <td>
-        <table>
-          <tr>
-            <td>
-              <ol>
-                <li>全くそう思わない
-                  <span id="Q7-1"></span>
-                </li>
-                <li>そう思わない
-                  <span id="Q7-2"></span>
-                </li>
-                <li>どちらとも言えない
-                  <span id="Q7-3"></span>
-                </li>
-                <li>そう思う
-                  <span id="Q7-4"></span>
-                </li>
-                <li>強くそう思う
-                  <span id="Q7-5"></span>
-                </li>
-              </ol>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q2-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q2-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q2-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q2-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q2-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
 
-  <script>
-    var resultsQ1, resultsQ2, resultsQ3, resultsQ4, resultsQ5, resultsQ6, resultsQ7;
-    var dataQ1, dataQ2, dataQ3, dataQ4, dataQ5, dataQ6, dataQ7;
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q3-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q3-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q3-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q3-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q3-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q4-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q4-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q4-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q4-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q4-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q5-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q5-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q5-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q5-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q5-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q6-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q6-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q6-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q6-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q6-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>話し方は、明瞭で聞き取り易かったですか。</td>
+          <td>
+            <table>
+              <tr>
+                <td>
+                  <ol>
+                    <li>全くそう思わない
+                      <span id="Q7-1"></span>
+                    </li>
+                    <li>そう思わない
+                      <span id="Q7-2"></span>
+                    </li>
+                    <li>どちらとも言えない
+                      <span id="Q7-3"></span>
+                    </li>
+                    <li>そう思う
+                      <span id="Q7-4"></span>
+                    </li>
+                    <li>強くそう思う
+                      <span id="Q7-5"></span>
+                    </li>
+                  </ol>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-    // サーバーからデータを取得しグラフを描画する関数
-    async function fetchDataAndDrawChart() {
-      try {
-        var surveyTitle = window.location.pathname.substring("/admin/results/".length);
-        var fetchURL = '/admin/results/getdata/' + surveyTitle;
-        // サーバーからデータを取得
-        const response = await fetch(fetchURL);
+    <script>
+      var resultsQ1, resultsQ2, resultsQ3, resultsQ4, resultsQ5, resultsQ6, resultsQ7;
+      var dataQ1, dataQ2, dataQ3, dataQ4, dataQ5, dataQ6, dataQ7;
 
-        // fetch メソッドの非同期処理を同期的に待つために async/await を使用
-        const Alldata = await response.json();
+      // サーバーからデータを取得しグラフを描画する関数
+      async function fetchDataAndDrawChart() {
+        try {
+          var surveyTitle = window.location.pathname.substring("/admin/results/".length);
+          var fetchURL = '/admin/results/getdata/' + surveyTitle;
+          // サーバーからデータを取得
+          const response = await fetch(fetchURL);
 
-        console.log("data:", Alldata);
+          // fetch メソッドの非同期処理を同期的に待つために async/await を使用
+          const Alldata = await response.json();
 
-        // data オブジェクトから各 resultsQ マップを取り出す
-        resultsQ1 = Alldata.resultsQ1;
-        resultsQ2 = Alldata.resultsQ2;
-        resultsQ3 = Alldata.resultsQ3;
-        resultsQ4 = Alldata.resultsQ4;
-        resultsQ5 = Alldata.resultsQ5;
-        resultsQ6 = Alldata.resultsQ6;
-        resultsQ7 = Alldata.resultsQ7;
+          console.log("data:", Alldata);
 
-        dataQ1 = Object.keys(resultsQ1).map(choice => ({
-          choice: choice,
-          votes: resultsQ1[choice]
-        }));
+          // data オブジェクトから各 resultsQ マップを取り出す
+          resultsQ1 = Alldata.resultsQ1;
+          resultsQ2 = Alldata.resultsQ2;
+          resultsQ3 = Alldata.resultsQ3;
+          resultsQ4 = Alldata.resultsQ4;
+          resultsQ5 = Alldata.resultsQ5;
+          resultsQ6 = Alldata.resultsQ6;
+          resultsQ7 = Alldata.resultsQ7;
 
-        dataQ2 = Object.keys(resultsQ2).map(choice => ({
-          choice: choice,
-          votes: resultsQ2[choice]
-        }));
+          dataQ1 = Object.keys(resultsQ1).map(choice => ({
+            choice: choice,
+            votes: resultsQ1[choice]
+          }));
 
-        dataQ3 = Object.keys(resultsQ3).map(choice => ({
-          choice: choice,
-          votes: resultsQ3[choice]
-        }));
+          dataQ2 = Object.keys(resultsQ2).map(choice => ({
+            choice: choice,
+            votes: resultsQ2[choice]
+          }));
 
-        dataQ4 = Object.keys(resultsQ4).map(choice => ({
-          choice: choice,
-          votes: resultsQ4[choice]
-        }));
+          dataQ3 = Object.keys(resultsQ3).map(choice => ({
+            choice: choice,
+            votes: resultsQ3[choice]
+          }));
 
-        dataQ5 = Object.keys(resultsQ5).map(choice => ({
-          choice: choice,
-          votes: resultsQ5[choice]
-        }));
+          dataQ4 = Object.keys(resultsQ4).map(choice => ({
+            choice: choice,
+            votes: resultsQ4[choice]
+          }));
 
-        dataQ6 = Object.keys(resultsQ6).map(choice => ({
-          choice: choice,
-          votes: resultsQ6[choice]
-        }));
+          dataQ5 = Object.keys(resultsQ5).map(choice => ({
+            choice: choice,
+            votes: resultsQ5[choice]
+          }));
 
-        dataQ7 = Object.keys(resultsQ7).map(choice => ({
-          choice: choice,
-          votes: resultsQ7[choice]
-        }));
-        drawChart(1, dataQ1);
-        drawChart(2, dataQ2);
-        drawChart(3, dataQ3);
-        drawChart(4, dataQ4);
-        drawChart(5, dataQ5);
-        drawChart(6, dataQ6);
-        drawChart(7, dataQ7);
+          dataQ6 = Object.keys(resultsQ6).map(choice => ({
+            choice: choice,
+            votes: resultsQ6[choice]
+          }));
 
-      } catch (error) {
-        console.error('エラー:', error);
+          dataQ7 = Object.keys(resultsQ7).map(choice => ({
+            choice: choice,
+            votes: resultsQ7[choice]
+          }));
+          drawChart(1, dataQ1);
+          drawChart(2, dataQ2);
+          drawChart(3, dataQ3);
+          drawChart(4, dataQ4);
+          drawChart(5, dataQ5);
+          drawChart(6, dataQ6);
+          drawChart(7, dataQ7);
+
+        } catch (error) {
+          console.error('エラー:', error);
+        }
       }
-    }
 
-    //グラフを描画する関数fetchDataDrawChart関数内で使用
-    //設問番号と各設問の集計データを引数とする
-    function drawChart(qNum, data) {
-      // SVGのサイズ設定
-      const width = 235, height = 30;
+      //グラフを描画する関数fetchDataDrawChart関数内で使用
+      //設問番号と各設問の集計データを引数とする
+      function drawChart(qNum, data) {
+        // SVGのサイズ設定
+        const width = 235, height = 30;
 
-      // 投票数の合計を計算する変数
-      let totalVotes = 0;
+        // 投票数の合計を計算する変数
+        let totalVotes = 0;
 
-      // forループを使用して投票数を合計
-      for (let i = 0; i < data.length; i++) {
-        totalVotes += data[i].votes;
+        // forループを使用して投票数を合計
+        for (let i = 0; i < data.length; i++) {
+          totalVotes += data[i].votes;
+        }
+
+        // スケールの設定
+        const xScale = d3.scaleLinear()
+          .domain([0, totalVotes])
+          .range([0, width]);
+
+        // カラースケールの設定
+        const colorScale = d3.scaleLinear()
+          .domain([0, data.length - 1])
+          .range(["#87cefa", "#6495ed"]);
+
+        // 各データ要素に対してSVGを作成
+        data.forEach((d, i) => {
+          const svg = d3.select(`#Q${qNum}-${i + 1}`).append("svg")
+            .attr("width", width).append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+          // 横棒グラフの背景 (グレー) を描画
+          svg.append("rect")
+            .attr("class", "bg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "#eaeaea")
+            .attr("rx", 5)
+            .attr("ry", 5);
+
+          // 横棒グラフの前景 (選択された回数) を描画
+          svg.append("rect")
+            .attr("class", "fg")
+            .attr("width", xScale(d.votes))
+            .attr("height", height)
+            .attr("fill", colorScale(i))
+            .attr("rx", 5)
+            .attr("ry", 5);
+
+          // データ数（投票数）を表示するテキストの追加
+          svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height / 2)
+            .attr("text-anchor", "middle")
+            .attr("dy", ".35em")
+            .attr("fill", xScale(d.votes) > width / 2 ? "white" : "black")
+            .text(d.votes);
+        });
       }
+      fetchDataAndDrawChart();
 
-      // スケールの設定
-      const xScale = d3.scaleLinear()
-        .domain([0, totalVotes])
-        .range([0, width]);
-
-      // カラースケールの設定
-      const colorScale = d3.scaleLinear()
-        .domain([0, data.length - 1])
-        .range(["#87cefa", "#6495ed"]);
-
-      // 各データ要素に対してSVGを作成
-      data.forEach((d, i) => {
-        const svg = d3.select(`#Q${qNum}-${i + 1}`).append("svg")
-          .attr("width", width).append("svg")
-          .attr("width", width)
-          .attr("height", height);
-
-        // 横棒グラフの背景 (グレー) を描画
-        svg.append("rect")
-          .attr("class", "bg")
-          .attr("width", width)
-          .attr("height", height)
-          .attr("fill", "#eaeaea")
-          .attr("rx", 5)
-          .attr("ry", 5);
-
-        // 横棒グラフの前景 (選択された回数) を描画
-        svg.append("rect")
-          .attr("class", "fg")
-          .attr("width", xScale(d.votes))
-          .attr("height", height)
-          .attr("fill", colorScale(i))
-          .attr("rx", 5)
-          .attr("ry", 5);
-
-        // データ数（投票数）を表示するテキストの追加
-        svg.append("text")
-          .attr("x", width / 2)
-          .attr("y", height / 2)
-          .attr("text-anchor", "middle")
-          .attr("dy", ".35em")
-          .attr("fill", xScale(d.votes) > width / 2 ? "white" : "black")
-          .text(d.votes);
-      });
-    }
-    fetchDataAndDrawChart();
-
-  </script>
+    </script>
 </body>
 
 </html>

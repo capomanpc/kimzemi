@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>アンケート回答</title>
+    <style>
+        .top {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1.2px solid #dcdcdc;
+            background-image: linear-gradient(to bottom, #28647b, #28647b 10px, #fff 3px, #fff);
+            width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-top: 20px;
+
+        }
+
+        .rightButton {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+            border-radius: 5px;
+            color: #0000EE;
+            text-decoration: underline;
+            font-size: 16px;
+        }
+
+        .rightButton:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 7px 3px;
+
+        }
+
+        .button-container {
+            width: 620px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .bottomTitle {
+            color: #5d5d5d;
+            text-align: center;
+            font-family: 'Times New Roman';
+            font-weight: normal;
+        }
+
+        header {
+            background-color: #28647b;
+            color: white;
+            text-align: left;
+            padding: 13px;
+            margin: 0;
+            width: 100%;
+        }
+
+        header h2 {
+            margin: 0;
+            font-weight: normal;
+            font-size: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        body {
+            background-color: #eaf0f2;
+            margin: 0;
+        }
+
+        .text {
+            font-weight: normal;
+            color: #515151
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h2>　日本大学短期大学部 WEBアンケートシステム</h2>
+    </header>
+    <div class="content">
+        <div class="top">
+            <p style="font-size: 30px">授業評価Webアンケートシステム</p>
+            <h4 class="text">回答を送信しました</h4>
+            <div class="button-container">
+                <button class="rightButton" form="back-to-home" type="submit">アンケート一覧に戻る</button>
+            </div>
+        </div>
+    </div>
+    <form id="back-to-home" action="/" method="get">
+    </form>
+    <h5 class="bottomTitle">このフォームでパスワードは送信しないでください。</h5>
+    <h5 class="bottomTitle">このフォームは日本大学短期大学部内で作成されました。</h5>
+    <h2 class="bottomTitle">日本大学短期大学部Webアンケートシステム</h2>
+
+
+
+
+</body>
+
+</html>
