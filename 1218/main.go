@@ -13,8 +13,8 @@ type Survey struct {
 	ClassCode     string
 	ClassSchedule string
 	TeacherName   string
-	Results       map[string]interface{}
 	TotalVote     string
+	Results       map[string]interface{}
 }
 
 var (
@@ -60,6 +60,7 @@ func main() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 	tmpl, err := template.ParseFiles("home.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -69,6 +70,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func surveyHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+
 	title := r.URL.Path[len("/survey/"):] // URLからtitleを読み取る
 	mu.Lock()
 	survey, ok := surveys[title] //titleに合ったアンケートデータが入った構造体をsurveyに代入
@@ -128,6 +131,7 @@ func surveyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func submitSuccess1Handler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 	http.ServeFile(w, r, "surveySuccess.html")
 }
 
@@ -144,11 +148,13 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		// リクエストメソッドがGETの場合
 		// ログイン画面を表示
+		w.Header().Set("Content-Type", "text/html")
 		http.ServeFile(w, r, "login.html")
 	}
 }
 
 func adminHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 	tmpl, err := template.ParseFiles("admin.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -158,6 +164,7 @@ func adminHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func resultsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 	title := r.URL.Path[len("/admin/results/"):] // URLからtitleを読み取る
 	mu.Lock()
 	survey, ok := surveys[title] //titleに合ったアンケートデータが入った構造体をsurveyに代入
@@ -204,9 +211,12 @@ func createHandler(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+	w.Header().Set("Content-Type", "text/html")
 	http.ServeFile(w, r, "create.html")
 }
 
 func submitSuccess2Handler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+
 	http.ServeFile(w, r, "createSuccess.html")
 }
